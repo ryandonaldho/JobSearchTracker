@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ListItem from './ListItem.js';
 
 class Spreadsheet extends Component {
 
@@ -9,7 +10,7 @@ class Spreadsheet extends Component {
 		}
 	}
 
-	getSpreadsheet(){
+	getSpreadsheetData(){
 		const params = {
 		// The ID of the spreadsheet to retrieve data from.
 	    spreadsheetId: this.props.SpreadsheetId,  // TODO: Update placeholder value.
@@ -31,7 +32,7 @@ class Spreadsheet extends Component {
 
 		window.gapi.client.sheets.spreadsheets.values.get(params)
 		.then(response =>{
-			console.log(response.result);
+			//console.log(response.result);
 			this.setState({
 				list : response.result.values
 			})
@@ -43,7 +44,7 @@ class Spreadsheet extends Component {
 	}
 
 	componentDidMount(){
-		this.getSpreadsheet();
+		this.getSpreadsheetData();
 
 	}
 
@@ -51,15 +52,13 @@ class Spreadsheet extends Component {
 	render(){
 		const {list} = this.state;
 		console.log(list);
-		console.log(list[50]);
-		let listItems = list.map((item, index) =>{
-			//console.log(item[0]);
-			return <li key={index}> {item[0]} ======== {item[1]} </li>
-		}
+		let lastFive = list.slice(-10);
+		let listItems = lastFive.map((item, index) =>
+			<ListItem key={index} value={item} />
 		);
 		return (
 			<div>
-			Test
+
 			<ul> {listItems} </ul>
 			</div>
 		);

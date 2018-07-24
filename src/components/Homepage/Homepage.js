@@ -22,8 +22,8 @@ class Homepage extends Component {
 		return(
 			<div>
 				Home
+				<button id="signout-button" onClick={this.signedOutPressed}>Sign out</button>
 				<Spreadsheet SpreadsheetId={"1LOZWvG84gTeRE7rU0T0wEQFeFKXkvQgyzSIWTgPDBUg"} />
-			<button id="signout-button" onClick={this.signedOutPressed}>Sign out</button>
 			</div>
 		);
 	}
