@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import LoginPage from './components/Login'
-import HomePage from './components/Homepage'
+import LoginPage from './components/Login/Login'
+import HomePage from './components/Homepage/Homepage'
 class App extends Component {
 
   constructor(){
@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      {this.state.loggedIn === true ? <HomePage/> : <LoginPage setLoggedIn={this.setLoggedIn} /> }
+      {this.state.loggedIn === true ? <HomePage setLoggedIn={this.setLoggedIn} /> : <LoginPage setLoggedIn={this.setLoggedIn} /> }
 
       </div>
     );

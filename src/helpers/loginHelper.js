@@ -1,5 +1,6 @@
 
-export const initClient = () => {
+const initClient = () => {
+   console.log("client init called");
   const API_KEY = 'AIzaSyDULiimi-dV31HILqUUv2s1n1j4CQ0x7CI';  // TODO: Update placeholder with desired API key.
 
   const CLIENT_ID = '322355182686-tt6klmnndb80q2tnhptefirene67dmqa.apps.googleusercontent.com';  // TODO: Update placeholder with desired client ID.
@@ -21,48 +22,49 @@ export const initClient = () => {
     'clientId': CLIENT_ID,
     'scope': SCOPE,
     'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-  })
+  }).then(() =>{
+  	    window.gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
+        updateSignInStatus(window.gapi.auth2.getAuthInstance().isSignedIn.get());
+  });
 }
 
 export const handleClientLoad = () => {
- 	window.gapi.load('client:auth2', this.initClient);
+	console.log("clientLoad called");
+ 	window.gapi.load('client:auth2', initClient);
  }
+
+
+export const getSignInStatus = () =>{
+	 return updateSignInStatus(window.gapi.auth2.getAuthInstance().isSignedIn.get());
+}
 
 
 export const updateSignInStatus = (isSignedIn) =>{
 
-		if (isSignedIn) {
+	if (isSignedIn) {
       	console.log("signedin");
-      	//this.props.setLoggedIn(true);
-  		// const auth2 = window.gapi.auth2.getAuthInstance();
-		// var profile = auth2.currentUser.get().getBasicProfile();
-		// console.log('ID: ' + profile.getId());
-		// console.log('Full Name: ' + profile.getName());
-		// console.log('Given Name: ' + profile.getGivenName());
-		// console.log('Family Name: ' + profile.getFamilyName());
-		// console.log('Image URL: ' + profile.getImageUrl());
-		// console.log('Email: ' + profile.getEmail());
-
-    //makeApiCall();
+      	return true;
+	 	//	const auth2 = window.gapi.auth2.getAuthInstance();
+	// var profile = auth2.currentUser.get().getBasicProfile();
+	// console.log('ID: ' + profile.getId());
+	// console.log('Full Name: ' + profile.getName());
+	// console.log('Given Name: ' + profile.getGivenName());
+	// console.log('Family Name: ' + profile.getFamilyName());
+	// console.log('Image URL: ' + profile.getImageUrl());
+	// console.log('Email: ' + profile.getEmail());
+	//makeApiCall();
   }
   else{
   	console.log("signedOut");
-		//this.props.setLoggedIn(false);
+  	return false;
   }
 }
 
 
-export const handleSignInClick = (e) => {
-	e.preventDefault();
+export const handleSignInClick = () => {
 	window.gapi.auth2.getAuthInstance().signIn();
-	window.gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
-	updateSignInStatus(window.gapi.auth2.getAuthInstance().isSignedIn.get());
 }
 
-export const handleSignOutClick = (e) => {
-	e.preventDefault();
+export const handleSignOutClick = () => {
 	window.gapi.auth2.getAuthInstance().signOut();
-	window.gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
-	updateSignInStatus(window.gapi.auth2.getAuthInstance().isSignedIn.get());
-	console.log(e);
 }
