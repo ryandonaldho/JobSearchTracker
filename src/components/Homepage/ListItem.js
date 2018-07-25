@@ -1,9 +1,12 @@
 import React from 'react';
 
-const ListItem = ({value}) =>{
+
+
+
+const ListItem = ({value, onClick}) =>{
 	return (
 		<div>
-			<li> {value[0]} </li>
+			<li onClick={onClick}> {value} </li>
 		</div>
 	);
 }

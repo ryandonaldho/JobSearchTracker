@@ -54,7 +54,7 @@ class Spreadsheet extends Component {
 		console.log(list);
 		let lastFive = list.slice(-10);
 		let listItems = lastFive.map((item, index) =>
-			<ListItem key={index} value={item} />
+			<ListItem key={index} value={item[0]} />
 		);
 		return (
 			<div>

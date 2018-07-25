@@ -8,7 +8,11 @@ const initClient = () => {
   // TODO: Authorize using one of the following scopes:
    const  list = ['https://www.googleapis.com/auth/drive',
     'https://www.googleapis.com/auth/drive.file',
+    'https://www.googleapis.com/auth/drive',
     'https://www.googleapis.com/auth/drive.readonly',
+    'https://www.googleapis.com/auth/drive.appdata',
+    'https://www.googleapis.com/auth/drive.metadata',
+    'https://www.googleapis.com/auth/drive.metadata.readonly',
     'https://www.googleapis.com/auth/spreadsheets',
     'https://www.googleapis.com/auth/spreadsheets.readonly',
     'https://www.googleapis.com/auth/plus.login']
@@ -21,7 +25,7 @@ const initClient = () => {
     'apiKey': API_KEY,
     'clientId': CLIENT_ID,
     'scope': SCOPE,
-    'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+    'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4','https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
   }).then(() =>{
   	    window.gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
         updateSignInStatus(window.gapi.auth2.getAuthInstance().isSignedIn.get());
