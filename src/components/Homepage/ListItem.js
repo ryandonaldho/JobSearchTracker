@@ -6,7 +6,7 @@ import React from 'react';
 const ListItem = ({value, onClick}) =>{
 	return (
 		<div>
-			<li onClick={onClick}> {value} </li>
+			<li className="list-group-item list-group-item-action" onClick={onClick}> {value} </li>
 		</div>
 	);
 }

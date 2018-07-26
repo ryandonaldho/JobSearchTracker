@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {handleSignOutClick,getSignInStatus,handleClientLoad} from '../../helpers/loginHelper';
 import Spreadsheet from './Spreadsheet';
 import FileList from './FileList';
+import {Redirect } from 'react-router-dom';
 class Homepage extends Component {
 
 	constructor(props){
@@ -20,8 +21,15 @@ class Homepage extends Component {
 
 
 	render(){
+
+		if (!this.props.loggedIn){
+			return (
+			   <Redirect to="/" />
+			);
+		}
+
 		return(
-			<div>
+			<div className="col">
 				Home
 				<button id="signout-button" onClick={this.signedOutPressed}>Sign out</button>
 				<FileList/>

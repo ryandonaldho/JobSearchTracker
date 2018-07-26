@@ -1,3 +1,4 @@
+/* global gapi */
 
 const initClient = () => {
    console.log("client init called");
@@ -34,7 +35,13 @@ const initClient = () => {
 
 export const handleClientLoad = () => {
 	console.log("clientLoad called");
- 	window.gapi.load('client:auth2', initClient);
+	const script = document.createElement("script");
+	script.onload = () => {
+		window.gapi.load('client:auth2', initClient);
+	}
+	script.src = "https://apis.google.com/js/client.js";
+	document.body.appendChild(script);
+
  }
 
 

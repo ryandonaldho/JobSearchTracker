@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import './Login.css';
+import {Redirect } from 'react-router-dom';
 import {handleClientLoad,handleSignInClick,getSignInStatus} from '../../helpers/loginHelper';
 
 class Login extends Component {
@@ -20,10 +22,21 @@ class Login extends Component {
 	}
 
 	render(){
+		if (this.props.loggedIn){
+			return (
+			   <Redirect to="/home" />
+			);
+		}
 
 		return (
-			<div>
-			    <button id="signin-button" onClick={this.signedInPressed} >Sign in</button>
+			<div class="jumbotron text-center">
+			<h1 class="display-4">Job Search Tracker</h1>
+			<p class="lead">This is a simple application that connect to your google drive account and keep tracks of your jobs in a spreadsheet</p>
+			<hr class="my-4"/>
+			<p>Uses Google spreadsheet api</p>
+			<p class="lead">
+			<button id="signin-button" className="btn btn-primary" onClick={this.signedInPressed}> <i className="fa fa-google"> Google Sign in </i></button>
+			</p>
 			</div>
 		);
 	}

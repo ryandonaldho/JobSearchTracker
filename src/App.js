@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import LoginPage from './components/Login/Login'
-import HomePage from './components/Homepage/Homepage'
+import LoginPage from './components/Login/Login';
+import HomePage from './components/Homepage/Homepage';
+import { Route, Link, Redirect, } from 'react-router-dom';
 class App extends Component {
 
   constructor(){
@@ -19,12 +20,23 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="App">
-      {this.state.loggedIn === true ? <HomePage setLoggedIn={this.setLoggedIn} /> : <LoginPage setLoggedIn={this.setLoggedIn} /> }
-
-      </div>
-    );
+        return(
+        <div>
+        <Route
+        exact path="/"
+         render={(props) => <LoginPage setLoggedIn={this.setLoggedIn} loggedIn={this.state.loggedIn} />}
+         />
+        <Route 
+         path="/home"
+         render={(props) => <HomePage setLoggedIn={this.setLoggedIn} loggedIn={this.state.loggedIn}  />}
+         />
+         </div>
+         );
+          // return (
+          //   <div className="row justify-content-center">
+          //     {this.state.loggedIn === true ? <HomePage setLoggedIn={this.setLoggedIn} /> : <LoginPage setLoggedIn={this.setLoggedIn} /> }
+          //    </div>
+          // );
   }
 }
 
