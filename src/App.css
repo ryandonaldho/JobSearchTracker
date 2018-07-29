@@ -1,0 +1,10 @@
+body, html { height: 100vh; width: 100vw; overflow: hidden; }
+
+.container-fluid {
+    background-image: url("background.png");
+    background-size: cover;
+    background-repeat: round space;
+    padding:0;
+    margin: 0;
+ }
+

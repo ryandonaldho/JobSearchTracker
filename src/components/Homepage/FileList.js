@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import ListItem from './ListItem.js';
-
+import Spreadsheet from './Spreadsheet';
 class FileList extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			fileList : []
+			fileList : [],
+			fileSelected: ""
 		}
 	}
 
@@ -31,7 +32,10 @@ class FileList extends Component {
 
 
 	handleOnClick =  (item) => {
-		console.log(item);
+		//console.log(item);
+		this.setState({
+			fileSelected: item.id
+		});
 		console.log("clicked");
 	}
 
@@ -40,15 +44,22 @@ class FileList extends Component {
 	}
 
 	render(){
-			const style = {
-  				width: "18 rem",
-  				border: "1px solid black"
-			}
-	
+
+		if (this.state.fileSelected){
+			return(
+			<Spreadsheet SpreadsheetId={this.state.fileSelected} />
+			);
+		}
+
+		const style = {
+			width: "18 rem",
+			border: "1px solid black"
+		}
+
 
 		const {fileList} = this.state;
 		console.log(fileList);
-		let lastTen = fileList.slice(-10);
+		let lastTen = fileList;
 		let listItems = lastTen.map((item, index) =>
 			// use bind to know which item was clicked
 			<ListItem key={index} onClick={this.handleOnClick.bind(this,item)} value={item.name} />

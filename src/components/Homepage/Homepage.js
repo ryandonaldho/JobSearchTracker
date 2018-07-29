@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {handleSignOutClick,getSignInStatus,handleClientLoad} from '../../helpers/loginHelper';
-import Spreadsheet from './Spreadsheet';
 import FileList from './FileList';
 import {Redirect } from 'react-router-dom';
 class Homepage extends Component {
@@ -31,9 +30,8 @@ class Homepage extends Component {
 		return(
 			<div className="col">
 				Home
-				<button id="signout-button" onClick={this.signedOutPressed}>Sign out</button>
+				<button id="signout-button" className="float-right" onClick={this.signedOutPressed}>Sign out</button>
 				<FileList/>
-				<Spreadsheet SpreadsheetId={"1LOZWvG84gTeRE7rU0T0wEQFeFKXkvQgyzSIWTgPDBUg"} />
 			</div>
 		);
 	}

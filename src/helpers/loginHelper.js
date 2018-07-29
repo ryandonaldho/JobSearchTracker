@@ -35,6 +35,7 @@ const initClient = () => {
 
 export const handleClientLoad = () => {
 	console.log("clientLoad called");
+	// only initialize client when script has been loaded fixed issue when sometimes it doesn't load in time
 	const script = document.createElement("script");
 	script.onload = () => {
 		window.gapi.load('client:auth2', initClient);

@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import ListItem from './ListItem.js';
+import ListItem from './ListItem';
+import './Spreadsheet.css';
+import  AddJobForm from './AddJobForm';
 
 class Spreadsheet extends Component {
 
 	constructor(props){
 		super(props);
 		this.state = {
-			list: [[]]
+			list: [[]],
+			addButton: false
 		}
 	}
 
-	getSpreadsheetData(){
+	getSpreadsheetData = () =>{
 		const params = {
 		// The ID of the spreadsheet to retrieve data from.
 	    spreadsheetId: this.props.SpreadsheetId,  // TODO: Update placeholder value.
@@ -43,6 +46,14 @@ class Spreadsheet extends Component {
 
 	}
 
+	addButtonClicked = () =>{
+		console.log("add Button clicked");
+		this.setState({
+			addButton: !this.state.addButton
+		});
+		console.log(this.state.addButton);
+	}
+
 	componentDidMount(){
 		this.getSpreadsheetData();
 
@@ -51,15 +62,24 @@ class Spreadsheet extends Component {
 
 	render(){
 		const {list} = this.state;
-		console.log(list);
+		console.log(list.length);
 		let lastFive = list.slice(-10);
 		let listItems = lastFive.map((item, index) =>
 			<ListItem key={index} value={item[0]} />
 		);
-		return (
-			<div>
 
+		let addForm;
+		if (this.state.addButton){
+			addForm = <AddJobForm spreadsheetId={this.props.SpreadsheetId} length={this.state.list.length} addButtonClicked={this.addButtonClicked} />
+		}
+
+		return (
+			<div className="container-fluid">
+			{addForm}
+			<button className ="btn btn-primary float-left" onClick={this.addButtonClicked} > Add New Applied Job </button>
+			<div class="container">
 			<ul> {listItems} </ul>
+			</div>
 			</div>
 		);
 	}
@@ -68,3 +88,5 @@ class Spreadsheet extends Component {
 
 
 export default Spreadsheet;
+
+

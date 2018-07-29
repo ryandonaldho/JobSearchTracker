@@ -21,7 +21,7 @@ class App extends Component {
 
   render() {
         return(
-        <div>
+        <div className="background container-fluid">
         <Route
         exact path="/"
          render={(props) => <LoginPage setLoggedIn={this.setLoggedIn} loggedIn={this.state.loggedIn} />}
