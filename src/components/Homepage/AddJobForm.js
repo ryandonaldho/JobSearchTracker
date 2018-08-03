@@ -16,9 +16,7 @@ class AddJobForm extends Component {
 
         // The A1 notation of a range to search for a logical table of data.
         // Values will be appended after the last row of the table.
-        // range: `A${this.props.length}`,  // TODO: Update placeholder value.
-
-        range: 'A595',
+         range: `A${this.props.length}`,  // TODO: Update placeholder value.
 
         // How the input data should be interpreted.
         valueInputOption: 'RAW',  // TODO: Update placeholder value.
@@ -33,10 +31,8 @@ class AddJobForm extends Component {
 
       let today = new Date();
    	  let date = (today.getMonth()+1) + '-' + today.getDate() + '-' + today.getFullYear();
-      console.log(date);
-
       var valueRangeBody = {
-        "values" : [[this.state.companyName, date]]
+        "values" : [[this.state.companyName, today.toISOString()]]
       };
 
 
@@ -59,6 +55,7 @@ class AddJobForm extends Component {
 		this.setState({
 			companyName : ''
 		})
+		this.props.handleNewJobs();
 	}
 
 	onNameChange = (event) =>{

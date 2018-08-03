@@ -46,6 +46,28 @@ class Spreadsheet extends Component {
 
 	}
 
+	clearSpreadsheetData = (index) =>{
+		     var params = {
+        // The ID of the spreadsheet to update.
+        spreadsheetId: this.props.SpreadsheetId,  // TODO: Update placeholder value.
+
+        // The A1 notation of the values to clear.
+        range: `A${index}:B${index}`,  // TODO: Update placeholder value.
+      };
+
+      var clearValuesRequestBody = {
+        // TODO: Add desired properties to the request body.
+      };
+
+      var request = window.gapi.client.sheets.spreadsheets.values.clear(params, clearValuesRequestBody);
+      request.then(function(response) {
+        // TODO: Change code below to process the `response` object:
+        console.log(response.result);
+      }, function(reason) {
+        console.error('error: ' + reason.result.error.message);
+      });
+	}
+
 	addButtonClicked = () =>{
 		console.log("add Button clicked");
 		this.setState({
@@ -54,23 +76,50 @@ class Spreadsheet extends Component {
 		console.log(this.state.addButton);
 	}
 
+	handleNewJobs = () =>{
+		console.log("new job called")
+		this.getSpreadsheetData();
+	}
+
+
+	handleOnClickDelete = (item) => {
+		console.log(item);
+		this.clearSpreadsheetData(item.index);
+		this.getSpreadsheetData();
+	}
+
 	componentDidMount(){
 		this.getSpreadsheetData();
 
 	}
 
 
+
 	render(){
 		const {list} = this.state;
-		console.log(list.length);
-		let lastFive = list.slice(-10);
-		let listItems = lastFive.map((item, index) =>
-			<ListItem key={index} value={item[0]} />
+		console.log(list);
+		let listObject = [];
+		list.map((item,index) =>{
+			listObject.push({
+				index : index + 1,
+				companyName : item[0],
+				date : item[1]
+
+			})
+		})
+		console.log(listObject);
+		let lastN = listObject.slice(-10);
+
+		let listItems = lastN.map((item) =>{
+			return <ListItem key={item.index} onClickDelete={this.handleOnClickDelete.bind(this,item)} value={item.companyName} date={item.date} />
+		}
 		);
+
+
 
 		let addForm;
 		if (this.state.addButton){
-			addForm = <AddJobForm spreadsheetId={this.props.SpreadsheetId} length={this.state.list.length} addButtonClicked={this.addButtonClicked} />
+			addForm = <AddJobForm spreadsheetId={this.props.SpreadsheetId} handleNewJobs={this.handleNewJobs} length={this.state.list.length} />
 		}
 
 		return (

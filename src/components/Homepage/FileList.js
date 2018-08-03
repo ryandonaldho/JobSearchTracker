@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ListItem from './ListItem.js';
 import Spreadsheet from './Spreadsheet';
 class FileList extends Component {
 	constructor(props){
@@ -77,5 +76,13 @@ class FileList extends Component {
 
 }
 
-
 export default FileList;
+
+const ListItem = ({value, onClick}) =>{
+	return (
+		<div>
+			<li className="list-group-item list-group-item-action" onClick={onClick}> {value} </li>
+		</div>
+	);
+
+}
