@@ -66,12 +66,12 @@ class AddJobForm extends Component {
 
 	render(){
 		return (
-			<form class="form-inline">
-			  <label class="sr-only" htmlFor="inlineFormInputName2">Name</label>
-			  <input onChange={this.onNameChange} type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" value={this.state.companyName} placeholder="Company Name" required/>
-
-			  <button type="button" onClick={this.onClickSubmit} class="btn btn-primary mb-2">Submit</button>
-			</form>
+			<div className="input-group mb-3">
+			  <input onChange={this.onNameChange} type="text" className="form-control" id="inlineFormInputName2" value={this.state.companyName} placeholder="Company Name" required/>
+				  <div className="input-group-append">
+			  <button type="button" onClick={this.onClickSubmit} className="btn btn-primary mb-2">Submit</button>
+				 </div>
+			</div>
 	);
 
 	}
@@ -79,4 +79,3 @@ class AddJobForm extends Component {
 }
 
 export default AddJobForm;
-

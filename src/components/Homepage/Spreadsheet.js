@@ -123,12 +123,12 @@ class Spreadsheet extends Component {
 		}
 
 		return (
-			<div className="container-fluid">
-			{addForm}
-			<button className ="btn btn-primary float-left" onClick={this.addButtonClicked} > Add New Applied Job </button>
-			<div class="container">
-			<ul> {listItems} </ul>
-			</div>
+			<div>
+				<div className="container d-flex flex-column">
+					<div className="d-flex justify-content-center"> <button className ="btn btn-primary float-right" onClick={this.addButtonClicked} > Add New Applied Job </button> </div>
+					<div className="d-flex justify-content-sm-center pt-3">{addForm}</div>
+					<div className="d-flex justify-content-center"> <ul className="list-group"> {listItems} </ul> </div>
+				</div>
 			</div>
 		);
 	}
@@ -137,5 +137,3 @@ class Spreadsheet extends Component {
 
 
 export default Spreadsheet;
-
-

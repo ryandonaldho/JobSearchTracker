@@ -12,7 +12,7 @@ class FileList extends Component {
 	getFileList(){
 		const params = {
 	    corpus: 'user',
-	    q: "mimeType='application/vnd.google-apps.spreadsheet'", 
+	    q: "mimeType='application/vnd.google-apps.spreadsheet'",
 		}
 
 		window.gapi.client.drive.files.list(params)
@@ -61,7 +61,7 @@ class FileList extends Component {
 		let lastTen = fileList;
 		let listItems = lastTen.map((item, index) =>
 			// use bind to know which item was clicked
-			<ListItem key={index} onClick={this.handleOnClick.bind(this,item)} value={item.name} />
+			<ListFileItem  key={index} onClick={this.handleOnClick.bind(this,item)} value={item.name} />
 
 
 
@@ -78,7 +78,7 @@ class FileList extends Component {
 
 export default FileList;
 
-const ListItem = ({value, onClick}) =>{
+const ListFileItem = ({value, onClick}) =>{
 	return (
 		<div>
 			<li className="list-group-item list-group-item-action" onClick={onClick}> {value} </li>

@@ -3,6 +3,13 @@ body {
   padding: 0;
   font-family: sans-serif;
   background-image: url("background.png");
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
 }
-
+html {
+  -webkit-overflow-scrolling: touch;
+  overflow: auto;
+  height:100%;
+}
 .navbar { margin-bottom: 0 }
