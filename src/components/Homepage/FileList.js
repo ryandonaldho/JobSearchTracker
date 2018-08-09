@@ -67,7 +67,7 @@ class FileList extends Component {
 
 		);
 		return (
-			<div className="card" style={style}>
+			<div className="card mx-auto" style={style}>
 			  <div class="card-header"> FileList  </div>
 				<ul className="list-group list-group-flush">{listItems}</ul>
 			</div>

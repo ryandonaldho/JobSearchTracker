@@ -29,13 +29,13 @@ class Login extends Component {
 		}
 
 		return (
-			<div class="jumbotron d-flex align-items-center text-center">
-				<div class="container">
-					<h1 class="display-4">Job Search Tracker</h1>
-					<p class="lead">This is a simple application that connect to your google drive account and keep tracks of your jobs in a spreadsheet</p>
-					<hr class="my-4"/>
+			<div className="d-flex justify-content-center">
+				<div className="jumbotron text-center">
+					<h1 className="display-4">Job Search Tracker</h1>
+					<p className="lead">This is a simple application that connect to your google drive account and keep tracks of your jobs in a spreadsheet</p>
+					<hr className="my-4"/>
 					<p>Uses Google Spreadsheet API</p>
-					<p class="lead">
+					<p className="lead">
 					<button id="signin-button" className="btn btn-primary" onClick={this.signedInPressed}> <i className="fa fa-google"> Google Sign in </i></button>
 					</p>
 				</div>

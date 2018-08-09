@@ -28,10 +28,14 @@ class Homepage extends Component {
 		}
 
 		return(
-			<div className="col">
+			<div className="container">
+			<div className="row justify-content-center">
 				Home
 				<button id="signout-button" className="float-right" onClick={this.signedOutPressed}>Sign out</button>
-				<FileList/>
+			</div>
+				<div className="row row-lg-auto justify-content-center">
+				 <FileList/>
+			 </div>
 			</div>
 		);
 	}

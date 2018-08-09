@@ -123,13 +123,11 @@ class Spreadsheet extends Component {
 		}
 
 		return (
-			<div>
-				<div className="container d-flex flex-column">
-					<div className="d-flex justify-content-center"> <button className ="btn btn-primary float-right" onClick={this.addButtonClicked} > Add New Applied Job </button> </div>
-					<div className="d-flex justify-content-sm-center pt-3">{addForm}</div>
-					<div className="d-flex justify-content-center"> <ul className="list-group"> {listItems} </ul> </div>
+				<div className="container">
+					<div className="row justify-content-center p-2"> <button className ="btn btn-primary float-right" onClick={this.addButtonClicked} > Add New Applied Job </button> </div>
+					<div className="row justify-content-center p-2">{addForm}</div>
+					<div className="row justify-content-center p-2"> <ul className="list-group scroll"> {listItems} </ul> </div>
 				</div>
-			</div>
 		);
 	}
 
