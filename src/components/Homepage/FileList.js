@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Spreadsheet from './Spreadsheet';
+import {getFileList} from '../../helpers/googleAPI';
 class FileList extends Component {
 	constructor(props){
 		super(props);
@@ -9,25 +10,6 @@ class FileList extends Component {
 		}
 	}
 
-	getFileList(){
-		const params = {
-	    corpus: 'user',
-	    q: "mimeType='application/vnd.google-apps.spreadsheet'",
-		}
-
-		window.gapi.client.drive.files.list(params)
-		.then(response =>{
-			console.log(response.result);
-			this.setState({
-				fileList : response.result.files
-			})
-		})
-		.catch(err => {
-			console.log(err);
-		});
-
-
-	}
 
 
 	handleOnClick =  (item) => {
@@ -38,8 +20,12 @@ class FileList extends Component {
 		console.log("clicked");
 	}
 
-	componentDidMount(){
-		this.getFileList();
+	componentWillMount(){
+		getFileList().then(files => {
+			this.setState({
+				fileList : files
+			})
+		});
 	}
 
 	render(){
@@ -58,6 +44,9 @@ class FileList extends Component {
 
 		const {fileList} = this.state;
 		console.log(fileList);
+		if (fileList == undefined){
+			return null;
+		}
 		let lastTen = fileList;
 		let listItems = lastTen.map((item, index) =>
 			// use bind to know which item was clicked

@@ -29,7 +29,7 @@ class Login extends Component {
 		}
 
 		return (
-			<div className="d-flex justify-content-center">
+			<div className="container">
 				<div className="jumbotron text-center">
 					<h1 className="display-4">Job Search Tracker</h1>
 					<p className="lead">This is a simple application that connect to your google drive account and keep tracks of your jobs in a spreadsheet</p>
