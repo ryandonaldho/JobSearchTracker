@@ -25,6 +25,9 @@ class Homepage extends Component {
 	}
 
 	componentDidMount() {
+
+		handleClientLoad();
+
 		/* check if prior user or new user
 		if new user create spreadsheet called JobTrackerSheet
 		else open up JobTrackerSheet
@@ -47,9 +50,6 @@ class Homepage extends Component {
 			// create new spreadsheet
 			else{
 				console.log("new user");
-				this.setState({
-					newUser: false
-				});
 				createSpreadsheet().then(id =>{
 					//console.log("id" + id);
 					this.setState({
@@ -68,7 +68,7 @@ class Homepage extends Component {
 
 
 	render(){
-		console.log(this.state.fileList);
+		console.log(this.state.spreadsheetId);
 		// when signout is pressed
 		if (!this.props.loggedIn){
 			return (
@@ -76,17 +76,24 @@ class Homepage extends Component {
 			);
 		}
 
-		return(
-			<div className="container">
-			<div className="row justify-content-center">
-				Home
-				<button id="signout-button" className="float-right" onClick={this.signedOutPressed}>Sign out</button>
-			</div>
-				<div className="row row-lg-auto justify-content-center">
-				<Spreadsheet SpreadsheetId={this.state.spreadsheetId} />
-			 </div>
-			</div>
-		);
+		if(this.state.spreadsheetId === ""){
+			return null;
+		}
+		else{
+			return(
+				<div className="container">
+				<div className="row justify-content-center">
+					Home
+					<button id="signout-button" className="float-right" onClick={this.signedOutPressed}>Sign out</button>
+				</div>
+					<div className="row row-lg-auto justify-content-center">
+					<Spreadsheet SpreadsheetId={this.state.spreadsheetId} />
+				 </div>
+				</div>
+			);
+		}
+
+
 	}
 }
 

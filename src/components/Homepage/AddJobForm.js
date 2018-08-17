@@ -16,7 +16,7 @@ class AddJobForm extends Component {
 
         // The A1 notation of a range to search for a logical table of data.
         // Values will be appended after the last row of the table.
-         range: `A${this.props.length}`,  // TODO: Update placeholder value.
+        range: `A${this.props.length+1}`,  // TODO: Update placeholder value.
 
         // How the input data should be interpreted.
         valueInputOption: 'RAW',  // TODO: Update placeholder value.

@@ -3,43 +3,44 @@ import ListItem from './ListItem';
 import './Spreadsheet.css';
 import  AddJobForm from './AddJobForm';
 
+
+
+
+
 class Spreadsheet extends Component {
 
 	constructor(props){
 		super(props);
 		this.state = {
 			list: [[]],
+			listObject: [[]],
 			addButton: false
 		}
 	}
 
-	getSpreadsheetData = () =>{
+	 getSpreadsheetData = () => {
+		console.log(this.props.SpreadsheetId);
 		const params = {
 		// The ID of the spreadsheet to retrieve data from.
-	    spreadsheetId: this.props.SpreadsheetId,  // TODO: Update placeholder value.
+	    spreadsheetId: this.props.SpreadsheetId,
 
 	    // The A1 notation of the values to retrieve.
-	    range: 'A1:D',  // TODO: Update placeholder value.
+	    range: 'A1:D',  //
 
 	    // How values should be represented in the output.
 	    // The default render option is ValueRenderOption.FORMATTED_VALUE.
 
-	    valueRenderOption: 'FORMATTED_VALUE',  // TODO: Update placeholder value.
+	    valueRenderOption: 'FORMATTED_VALUE',
 
 	    // How dates, times, and durations should be represented in the output.
 	    // This is ignored if value_render_option is
 	    // FORMATTED_VALUE.
 	    // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
-	    dateTimeRenderOption: 'SERIAL_NUMBER',  // TODO: Update placeholder value.
+	    dateTimeRenderOption: 'SERIAL_NUMBER',
 		}
 
-		window.gapi.client.sheets.spreadsheets.values.get(params)
-		.then(response =>{
-			//console.log(response.result);
-			this.setState({
-				list : response.result.values
-			})
-		})
+		return window.gapi.client.sheets.spreadsheets.values.get(params)
+		.then(response => response.result.values)
 		.catch(err => {
 			console.log(err);
 		});
@@ -68,47 +69,63 @@ class Spreadsheet extends Component {
       });
 	}
 
+	updateData = () =>{
+		this.getSpreadsheetData().then(data => {
+			// setup data for displaying
+			let tempList = [];
+			if (data !== undefined){
+				data.map((item,index) =>{
+					tempList.push({
+						index : index + 1,
+						companyName : item[0],
+						date : item[1]
+
+					})
+				})
+			}
+				this.setState({
+					listObject : tempList
+				});
+			//console.log(data);
+		});
+
+	}
+
 	addButtonClicked = () =>{
 		console.log("add Button clicked");
 		this.setState({
 			addButton: !this.state.addButton
 		});
-		console.log(this.state.addButton);
 	}
 
 	handleNewJobs = () =>{
 		console.log("new job called")
-		this.getSpreadsheetData();
+		this.updateData();
 	}
 
 
 	handleOnClickDelete = (item) => {
 		console.log(item);
 		this.clearSpreadsheetData(item.index);
-		this.getSpreadsheetData();
+		this.updateData();
+		console.log(this.state.listObject);
 	}
 
 	componentDidMount(){
-		this.getSpreadsheetData();
-
+		//console.log(this.props.spreadsheetId);
+		this.updateData();
 	}
 
 
 
 	render(){
-		const {list} = this.state;
-		console.log(list);
-		let listObject = [];
-		list.map((item,index) =>{
-			listObject.push({
-				index : index + 1,
-				companyName : item[0],
-				date : item[1]
 
-			})
-		})
-		console.log(listObject);
-		let lastN = listObject.slice(-10);
+		if (this.state.listObject === undefined){
+			// can put loading screen here
+			return null;
+		}
+
+		let lastN = this.state.listObject.slice(-10);
 
 		let listItems = lastN.map((item) =>{
 			return <ListItem key={item.index} onClickDelete={this.handleOnClickDelete.bind(this,item)} value={item.companyName} date={item.date} />
@@ -116,10 +133,10 @@ class Spreadsheet extends Component {
 		);
 
 
-
 		let addForm;
+		console.log(this.state.listObject.length);
 		if (this.state.addButton){
-			addForm = <AddJobForm spreadsheetId={this.props.SpreadsheetId} handleNewJobs={this.handleNewJobs} length={this.state.list.length} />
+			addForm = <AddJobForm spreadsheetId={this.props.SpreadsheetId} handleNewJobs={this.handleNewJobs} length={this.state.listObject.length} />
 		}
 
 		return (
